@@ -34,7 +34,7 @@ class BranchAndBound {
     private void expand(Node currentNode, Route route) {
         for (Edge edge : edgesToAttend) {
             if (currentNode.equals(edge.getSmallestStageNode())) {
-                int minimumCost = (route.getCost() + edge.getCost() + graph.getNumberOfStages() - (currentNode.getStage() + 2));
+                int minimumCost = ((route.getCost() + edge.getCost() + graph.getNumberOfStages()) - (currentNode.getStage() + 2));
                 if ( minimumCost < shortestRoute.getCost() ) {
                     visitedNodes.add( edge.getBiggestStageNode());
                     findShortestRoute( edge.getBiggestStageNode(), route.copy().addEdge(edge));
@@ -44,7 +44,7 @@ class BranchAndBound {
         }
     }
 
-    public List<Node> getVisitedNodes() {
+    List<Node> getVisitedNodes() {
         return visitedNodes;
     }
 }

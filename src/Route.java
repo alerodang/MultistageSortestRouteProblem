@@ -18,7 +18,7 @@ public class Route {
         return this;
     }
 
-    void addEdges (List<Edge> edges){
+    private void addEdges (List<Edge> edges){
         this.edges.addAll(edges);
     }
 
