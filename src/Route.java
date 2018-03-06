@@ -20,12 +20,6 @@ public class Route {
         return cost;
     }
 
-    Route copy() {
-        Route route = new Route(this.getCost());
-        route.edges.addAll(this.edges);
-        return route;
-    }
-
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

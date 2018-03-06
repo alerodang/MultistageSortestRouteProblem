@@ -15,9 +15,14 @@ class Node {
         return stage;
     }
 
-   @Override
+    @Override
     public boolean equals(Object obj) {
         return obj instanceof Node && (((Node) obj).id == this.id && ((Node) obj).stage == this.stage);
+    }
+
+    @Override
+    public String toString(){
+        return "Node" + this.stage + ", " + this.id;
     }
 
 }

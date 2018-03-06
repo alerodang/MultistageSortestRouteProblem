@@ -1,11 +1,13 @@
 import java.util.ArrayList;
+import java.util.List;
+
 /***
  * This class represents shortest route tree generate due to find the shortest route in a graph search
  * Every branch of the graph ends in the searched node
  */
 class BranchAndBound {
     private Node goal;
-    private ArrayList<Edge> edgesToAttend;
+    private List<Edge> edgesToAttend;
     private Graph graph;
     private Route shortestRoute;
 
@@ -25,16 +27,17 @@ class BranchAndBound {
     private void findShortestRoute(Node node, Route route){
         if (node.equals(goal) && route.getCost() < shortestRoute.getCost())
             shortestRoute = route;
-        //If not --> get shortest Route of sons
         expand(node, route);
     }
 
     //Remove the first edge with the node from the edgesToAttend list, and add it to the route list
     private void expand(Node currentNode, Route route) {
+        ArrayList <Edge> edgesToRemove = new ArrayList<>();
         for (Edge edge : edgesToAttend) {   /*Must delete edges from original leed more memory free*/
-            if (currentNode.equals(edge.getSmallestStageNode())/*¿This can be null?*/ && (route.getCost()
+            if (currentNode.equals(edge.getSmallestStageNode()) && (route.getCost()
                     + edge.getCost() + graph.getNumberOfStages() - currentNode.getStage()) < shortestRoute.getCost()){
-                findShortestRoute(edge.getBiggestStageNode(), (route.copy()).addEdge(edge));
+                System.out.println("FindShortestRoute was called for: "+edge.getBiggestStageNode().toString());
+                findShortestRoute(edge.getBiggestStageNode(), (route).addEdge(edge));
             }
         }
     }
