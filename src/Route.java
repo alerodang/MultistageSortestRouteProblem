@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
+
 /***
  * This class represents a route into the graph. Allows any route.
  */
 public class Route {
     private int cost;
-    private ArrayList <Edge> edges = new ArrayList<>();
+    private List <Edge> edges = new ArrayList<>();
 
     Route(int cost) {
         this.cost = cost;
@@ -16,6 +18,16 @@ public class Route {
         return this;
     }
 
+    void addEdges (List<Edge> edges){
+        this.edges.addAll(edges);
+    }
+
+    Route copy () {
+        Route route = new Route(this.cost);
+        route.addEdges(this.edges);
+        return route;
+    }
+
     int getCost(){
         return cost;
     }
@@ -23,7 +35,7 @@ public class Route {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for (Edge edge: edges) string.append(edge.toString()).append("\n");
+        for (Edge edge: edges) string.append("\n").append(edge.toString());
         return string.toString();
     }
 

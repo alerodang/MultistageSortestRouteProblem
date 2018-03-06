@@ -10,6 +10,7 @@ class BranchAndBound {
     private List<Edge> edgesToAttend;
     private Graph graph;
     private Route shortestRoute;
+    private List<Node> visitedNodes = new ArrayList<>();
 
     BranchAndBound(Node goal, Graph graph) {
         this.goal = goal;
@@ -27,18 +28,23 @@ class BranchAndBound {
     private void findShortestRoute(Node node, Route route){
         if (node.equals(goal) && route.getCost() < shortestRoute.getCost())
             shortestRoute = route;
-        expand(node, route);
+        else expand(node, route);
     }
 
-    //Remove the first edge with the node from the edgesToAttend list, and add it to the route list
     private void expand(Node currentNode, Route route) {
-        ArrayList <Edge> edgesToRemove = new ArrayList<>();
-        for (Edge edge : edgesToAttend) {   /*Must delete edges from original leed more memory free*/
-            if (currentNode.equals(edge.getSmallestStageNode()) && (route.getCost()
-                    + edge.getCost() + graph.getNumberOfStages() - currentNode.getStage()) < shortestRoute.getCost()){
-                System.out.println("FindShortestRoute was called for: "+edge.getBiggestStageNode().toString());
-                findShortestRoute(edge.getBiggestStageNode(), (route).addEdge(edge));
+        for (Edge edge : edgesToAttend) {
+            if (currentNode.equals(edge.getSmallestStageNode())) {
+                int minimumCost = (route.getCost() + edge.getCost() + graph.getNumberOfStages() - (currentNode.getStage() + 2));
+                if ( minimumCost < shortestRoute.getCost() ) {
+                    visitedNodes.add( edge.getBiggestStageNode());
+                    findShortestRoute( edge.getBiggestStageNode(), route.copy().addEdge(edge));
+                }
+                if(edge.getBiggestStageNode().equals(goal)) break;
             }
         }
+    }
+
+    public List<Node> getVisitedNodes() {
+        return visitedNodes;
     }
 }

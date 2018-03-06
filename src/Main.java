@@ -2,8 +2,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        System.out.println("**Graph 1**");
+        /*Graph 1*/
+        System.out.println("\n***Graph 1***");
         Node root = new Node(0, 0);
         Node n11 = new Node( 1,1);
         Node n12 = new Node( 2,1);
@@ -15,26 +15,35 @@ public class Main {
 
         Edge[] listOfEdgesGraph1 = {
                 new Edge(1, root, n11),
-                new Edge(5, n11, n21),
-                new Edge(3, n11, n23),
                 new Edge(3, root, n12),
                 new Edge(2, root, n13),
-                new Edge(4, n21, goal),
+                new Edge(1, n11, goal),
+                new Edge(5, n11, n21),
+                new Edge(3, n11, n23),
                 new Edge(4, n12, n21),
                 new Edge(3, n12, n22),
                 new Edge(2, n13, n22),
                 new Edge(7, n13, n23),
+                new Edge(4, n21, goal),
                 new Edge(1, n22, goal),
-                new Edge(1, n23, goal),
-                new Edge(1, n11, goal)
+                new Edge(1, n23, goal)
         };
 
         Graph graph1 = new Graph(listOfEdgesGraph1, root, goal);
-        Route obtainedRoute1 = new BranchAndBound(goal,graph1).CalculateAndGetShortestRoute();
+        BranchAndBound branchAndBound1 = new BranchAndBound(goal,graph1);
+        Route obtainedRoute1 = branchAndBound1.CalculateAndGetShortestRoute();
+        Route expectedRoute1 = new Route(0);
+        expectedRoute1.addEdge(listOfEdgesGraph1[0]);
+        expectedRoute1.addEdge(listOfEdgesGraph1[5]);
+        expectedRoute1.addEdge(listOfEdgesGraph1[12]);
+        if(obtainedRoute1.toString().equals(expectedRoute1.toString())) System.out.println("\nShortest Route correctly " +
+                "found:" + obtainedRoute1);
+        System.out.println("\nExpanded nodes:");
+        System.out.println(branchAndBound1.getVisitedNodes());
 
 
-
-        System.out.println("**Graph 2**");
+        /*Graph 2*/
+        System.out.println("\n***Graph 2***");
         root = new Node(0,0);
         n11 = new Node( 1,1);
         n12 = new Node( 2,1);
@@ -47,30 +56,36 @@ public class Main {
         goal = new Node(0,4);
 
         Edge[] listOfEdgesGraph2 = {
-                new Edge(2, root, n11),
-                new Edge(1, root, n12),
+                new Edge(1, root, n11),
+                new Edge(2, root, n12),
                 new Edge(3, root, n13),
-                new Edge(5, root, n14),
+                new Edge(4, root, n14),
                 new Edge(1, n11, n21),
-                new Edge(3, n12, n11),
-                new Edge(4, n12, n21),
-                new Edge(1, n12, n22),
-                new Edge(7, n13, n21),
-                new Edge(1, n13, n22),
-                new Edge(2, n14, n22),
-                new Edge(2, n21, n31),
-                new Edge(1, n22, n31),
-                new Edge(6, n22, n32),
+                new Edge(1, n12, n21),
+                new Edge(1, n13, n21),
+                new Edge(1, n14, n22),
+                new Edge(10, n21, n31),
+                new Edge(1, n22, n32),
                 new Edge(1, n31, n32),
-                new Edge(4, n31, goal),
+                new Edge(1, n31, goal),
                 new Edge(2, n32, goal)
         };
 
         Graph graph2 = new Graph(listOfEdgesGraph2, root, goal);
-        Route obtainedRoute2 = new BranchAndBound(goal,graph2).CalculateAndGetShortestRoute();
+        BranchAndBound branchAndBound2 = new BranchAndBound(goal,graph2);
+        Route obtainedRoute2 = branchAndBound2.CalculateAndGetShortestRoute();
+        Route expectedRoute2 = new Route(0);
+        expectedRoute2.addEdge(listOfEdgesGraph2[3]);
+        expectedRoute2.addEdge(listOfEdgesGraph2[7]);
+        expectedRoute2.addEdge(listOfEdgesGraph2[9]);
+        expectedRoute2.addEdge(listOfEdgesGraph2[12]);
+        if(obtainedRoute2.toString().equals(expectedRoute2.toString())) System.out.println("\nShortest Route correctly " +
+                "found:" + obtainedRoute2);
+        System.out.println("\nExpanded nodes:");
+        System.out.println(branchAndBound2.getVisitedNodes());
 
-
-        System.out.println("**Graph 3**");
+        /*Graph 3*/
+        System.out.println("\n***Graph 3***");
         root = new Node(0,0);
         n11 = new Node( 1,1);
         n12 = new Node( 2,1);
@@ -86,14 +101,16 @@ public class Main {
         };
 
         Graph graph3 = new Graph(listOfEdgesGraph3, root, goal);
-        Route obtainedRoute3 = new BranchAndBound(goal,graph3).CalculateAndGetShortestRoute();
+        BranchAndBound branchAndBound3 = new BranchAndBound(goal,graph3);
+        Route obtainedRoute3 = branchAndBound3.CalculateAndGetShortestRoute();
         Route expectedRoute3 = new Route(0);
         expectedRoute3.addEdge(listOfEdgesGraph3[0]);
         expectedRoute3.addEdge(listOfEdgesGraph3[2]);
         expectedRoute3.addEdge(listOfEdgesGraph3[4]);
-
-        if(obtainedRoute3.toString().equals(expectedRoute3.toString())) System.out.println("\nCorrect Solution: "
-            + obtainedRoute3);
+        if(obtainedRoute3.toString().equals(expectedRoute3.toString())) System.out.println("\nShortest Route correctly " +
+                "found:" + obtainedRoute3);
+        System.out.println("\nExpanded nodes:");
+        System.out.println(branchAndBound3.getVisitedNodes());
 
     }
 

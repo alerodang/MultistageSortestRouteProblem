@@ -10,11 +10,11 @@ import java.util.List;
 public class Graph {
 
     private List<Edge> edges;
-    private int numberOfNodes;
+    private int numberOfStages;
     private Node root;
 
     Graph(Edge[] edges, Node root, Node goal) {
-        this.numberOfNodes = goal.getStage();
+        this.numberOfStages = goal.getStage()+1;
         this.root = root;
         this.edges = new ArrayList<>(Arrays.asList(edges));
         this.edges.sort((edge1, edge2) -> (edge1.getCost() < edge2.getCost()) ? -1 : 1);
@@ -25,7 +25,7 @@ public class Graph {
     }
 
     int getNumberOfStages() {
-        return numberOfNodes;
+        return numberOfStages;
     }
 
     Node getRoot() {

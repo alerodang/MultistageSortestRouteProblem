@@ -22,7 +22,7 @@ class Node {
 
     @Override
     public String toString(){
-        return "Node" + this.stage + ", " + this.id;
+        return "node: "+this.stage+"-"+this.id;
     }
 
 }
